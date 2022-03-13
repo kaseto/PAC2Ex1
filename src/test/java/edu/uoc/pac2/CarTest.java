@@ -186,6 +186,7 @@ class CarTest {
 
     @Test
     void testWarranty() {
+
         assertTrue(car.getWarranty());
 
         car.setLicenseYear(2015);
@@ -313,6 +314,97 @@ class CarTest {
             fail("[ERROR] There is some problem with the definition of getter or setter methods of the price attribute");
             e.printStackTrace();
         }
+    }
+
+    // tests realizados por el alumno:
+
+    @Test
+    void  testLicensePlate(){
+
+        car.setLicensePlate("4578FHF");
+        assertEquals("4578FHF", car.getLicensePlate());
+       car. setPrice(10000);
+        assertEquals(12100, car.getPrice());
+
+
+        car.setLicensePlate("1234GTY");
+        assertEquals("1234GTY", car.getLicensePlate());
+        car. setPrice(15000);
+       assertEquals(18150, car.getPrice());
+
+
+
+        car.setLicensePlate("FG-123-GF");
+        assertEquals("FG-123-GF", car.getLicensePlate());
+        car. setPrice(20000);
+        assertEquals(24300, car.getPrice());
+
+
+
+        car.setLicensePlate("BH-667-AZ");
+        assertEquals("BH-667-AZ", car.getLicensePlate());
+        car. setPrice(30000);
+        assertEquals(36450, car.getPrice());
+
+        car.setLicensePlate("9898HJC");
+        assertEquals("9898HJC", car.getLicensePlate());
+        car. setPrice(8500.5);
+        assertEquals(10285.605, car.getPrice());
+    }
+
+    @Test
+    void testPrice(){
+
+        car.setPrice(0);
+        assertEquals("[ERROR] Car's price must be greater than 0", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setPrice(-10000);
+        assertEquals("[ERROR] Car's price must be greater than 0", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setPrice(-30);
+        assertEquals("[ERROR] Car's price must be greater than 0", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setPrice(-5.2);
+        assertEquals("[ERROR] Car's price must be greater than 0", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+    }
+    @Test
+    void  exceptionTestLicensePlate(){
+        car.setLicensePlate("3456 KTD");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("1234fFH");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("7F67GTF");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("FF-34-GT");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("FF 345-GT");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("FF-3F4-GT");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("FF-344-G");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
+        car.setLicensePlate("FF344HJ");
+        assertEquals("[ERROR] Car's license plate pattern is incorrect", outContent.toString().replaceAll("\n|\r\n", System.getProperty("line.separator").trim()));
+        restoreStreams();
+
     }
 
 }

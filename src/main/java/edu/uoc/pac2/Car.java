@@ -1,13 +1,12 @@
 package edu.uoc.pac2;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 public class Car {
-
-
     private static final double VAT_SPAIN=21;
     private static final double VAT_FRANCE=21.5;
-    private int id;
+    private int id = getNextId();
     private static int nextId =0;
     private String make;
     private String model;
@@ -17,42 +16,38 @@ public class Car {
     private double price;
 
     public Car() {
-       this.price=10000;
-       this.licensePlate="0000CDV";
-       this.fuel='P';
-       this.make="Lorem";
-       this.model="IPSUM";
-       this.licenseYear=2000;
-       nextId++;
-
-
+        this.licensePlate="0000CDV";
+        setPrice(10000);
+        this.make="Lorem";
+        this.model="IPSUM";
+        this.licenseYear=2000;
+        nextId++;
+        getId();
     }
 
     public Car(String make,String model,int licenseYear,char fuel, String licensePlate, double price) {
-        this.price=price;
-        this.licensePlate=licensePlate;
+        setLicensePlate(licensePlate);
+        setPrice(price);
+        this.licensePlate=getLicensePlate();
+        this.price=getPrice();
         this.fuel=fuel;
         this.make=make;
         this.model=model;
         this.licenseYear=licenseYear;
-        setNexId(nextId);
-
+        getId();
     }
 
     public int getId() {
         id=nextId;
         return id;
-
     }
 
-    private void setId(int id) {
-        this.id = id;
-
+    private void setId() {
+        // this.id=id;
     }
 
     public static int getNextId() {
         return nextId;
-
     }
 
     private void setNexId(int nextId) {
@@ -64,8 +59,12 @@ public class Car {
     }
 
     public void setMake(String make) {
+       String lowerCase="";
         if(make.length()<15){
-            this.make = make.substring(0,1).toUpperCase()+make.substring(1);
+            for (int i=0;i<make.length()+1;i++) {
+               lowerCase = make.substring(0, i).toLowerCase() + make.substring(i);
+            }
+            this.make=make.substring(0,1).toUpperCase()+lowerCase.substring(1);
         }else System.out.println("[ERROR] Car's make cannot be longer than 15 characters");
     }
 
@@ -92,26 +91,16 @@ public class Car {
     }
 
     public void setFuel(char fuel) {
-        switch (fuel){
-            case 'P':
-            case 'H':
-            case 'D':
-            case 'E':
-                this.fuel=fuel;
-            break;
-            default:System.out.print("[ERROR] Car's fuel is incorrect");
-            break;
-
+        switch (fuel) {
+            case 'P', 'H', 'D', 'E' -> this.fuel = fuel;
+            default -> System.out.print("[ERROR] Car's fuel is incorrect");
         }
-
     }
-//falla:
+
     public boolean getWarranty(){
         int year=LocalDate.now().getYear();
-        if (year-licenseYear >5){
-            return  false;
-        }else return true;
-
+        System.out.println(getLicenseYear());
+        return year - licenseYear <= 5;
     }
 
     public String getLicensePlate() {
@@ -119,16 +108,25 @@ public class Car {
     }
 
     public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
+        if(licensePlate.toUpperCase().matches("^[0-9]{4}[A-Z]{3}$")){
+            this.licensePlate = licensePlate;
+        }
+        else if (licensePlate.toUpperCase().matches("^[A-Z]{2}[-][0-9]{3}[-][A-Z]{2}$")){
+            this.licensePlate = licensePlate;
+
+        }else System.out.println("[ERROR] Car's license plate pattern is incorrect");
     }
 
     public double getPrice() {
-        price+=price*VAT_SPAIN/100;
         return price;
     }
 
     public void setPrice(double price) {
-        this.price = price;
+       this.price = price;
+        char symbol=getLicensePlate().charAt(2);
+        if(price>0){
+            if (symbol=='-')this.price+=price*VAT_FRANCE/100;
+            else this.price+=price*VAT_SPAIN/100;
+        }else System.out.println("[ERROR] Car's price must be greater than 0");
     }
-
 }
