@@ -1,12 +1,15 @@
 package edu.uoc.pac2;
 
 import java.time.LocalDate;
-import java.util.Locale;
 
-public class Car {
+
+public class
+Car {
+
     private static final double VAT_SPAIN=21;
     private static final double VAT_FRANCE=21.5;
-    private int id = getNextId();
+
+    private int id ;
     private static int nextId =0;
     private String make;
     private String model;
@@ -21,8 +24,9 @@ public class Car {
         this.make="Lorem";
         this.model="IPSUM";
         this.licenseYear=2000;
+        this.id=getNextId();
         nextId++;
-        getId();
+
     }
 
     public Car(String make,String model,int licenseYear,char fuel, String licensePlate, double price) {
@@ -34,7 +38,8 @@ public class Car {
         this.make=make;
         this.model=model;
         this.licenseYear=licenseYear;
-        getId();
+        this.id=getNextId();
+
     }
 
     public int getId() {
@@ -43,12 +48,11 @@ public class Car {
     }
 
     private void setId() {
-        // this.id=id;
+
     }
 
-    public static int getNextId() {
-        return nextId;
-    }
+    public static int getNextId() {return nextId;}
+
 
     private void setNexId(int nextId) {
         nextId++;
@@ -62,7 +66,7 @@ public class Car {
        String lowerCase="";
         if(make.length()<15){
             for (int i=0;i<make.length()+1;i++) {
-               lowerCase = make.substring(0, i).toLowerCase() + make.substring(i);
+                lowerCase = make.substring(0, i).toLowerCase();
             }
             this.make=make.substring(0,1).toUpperCase()+lowerCase.substring(1);
         }else System.out.println("[ERROR] Car's make cannot be longer than 15 characters");
@@ -81,14 +85,13 @@ public class Car {
         return licenseYear;
     }
 
+
     public void setLicenseYear(int licenseYear) {
        if(licenseYear>2000&&licenseYear<LocalDate.now().getYear()) this.licenseYear = licenseYear;
        else System.out.println("[ERROR] Car's license year must be in range [2000, current year]");
     }
 
-    public char getFuel() {
-        return fuel;
-    }
+    public char getFuel() {return fuel;}
 
     public void setFuel(char fuel) {
         switch (fuel) {
@@ -103,9 +106,7 @@ public class Car {
         return year - licenseYear <= 5;
     }
 
-    public String getLicensePlate() {
-        return licensePlate;
-    }
+    public String getLicensePlate() {return licensePlate;}
 
     public void setLicensePlate(String licensePlate) {
         if(licensePlate.toUpperCase().matches("^[0-9]{4}[A-Z]{3}$")){
