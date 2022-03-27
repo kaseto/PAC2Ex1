@@ -14,47 +14,42 @@ Car {
     private String make;
     private String model;
     private int licenseYear;
-    private char fuel='P';
+    private char fuel;
     private String licensePlate;
     private double price;
 
     public Car() {
-        this.licensePlate="0000CDV";
-        setPrice(10000);
-        this.make="Lorem";
-        this.model="IPSUM";
-        this.licenseYear=2000;
-        this.id=getNextId();
-        nextId++;
+        this("Lorem","IPSUM",
+                2000,'P',
+                "0000CDV",10000);
 
     }
 
-    public Car(String make,String model,int licenseYear,char fuel, String licensePlate, double price) {
+    public Car(String make,String model,int licenseYear, char fuel, String licensePlate, double price) {
         setLicensePlate(licensePlate);
         setPrice(price);
-        this.licensePlate=getLicensePlate();
-        this.price=getPrice();
-        this.fuel=fuel;
-        this.make=make;
-        this.model=model;
-        this.licenseYear=licenseYear;
-        this.id=getNextId();
+        setFuel(fuel);
+        setMake(make);
+        setModel(model);
+        setLicenseYear(licenseYear);
+        setId();
+        incNextId();
 
     }
 
     public int getId() {
-        id=nextId;
         return id;
     }
 
     private void setId() {
-
+        this.id=getNextId();
     }
 
-    public static int getNextId() {return nextId;}
+    public static int getNextId() {
+        return nextId;
+    }
 
-
-    private void setNexId(int nextId) {
+    private void incNextId(){
         nextId++;
     }
 
@@ -63,7 +58,7 @@ Car {
     }
 
     public void setMake(String make) {
-       String lowerCase="";
+        String lowerCase="";
         if(make.length()<15){
             for (int i=0;i<make.length()+1;i++) {
                 lowerCase = make.substring(0, i).toLowerCase();
@@ -87,7 +82,7 @@ Car {
 
 
     public void setLicenseYear(int licenseYear) {
-       if(licenseYear>2000&&licenseYear<LocalDate.now().getYear()) this.licenseYear = licenseYear;
+       if(licenseYear>=2000&&licenseYear<LocalDate.now().getYear()) this.licenseYear = licenseYear;
        else System.out.println("[ERROR] Car's license year must be in range [2000, current year]");
     }
 

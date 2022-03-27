@@ -323,23 +323,18 @@ class CarTest {
 
         car.setLicensePlate("4578FHF");
         assertEquals("4578FHF", car.getLicensePlate());
-       car. setPrice(10000);
+        car. setPrice(10000);
         assertEquals(12100, car.getPrice());
-
 
         car.setLicensePlate("1234GTY");
         assertEquals("1234GTY", car.getLicensePlate());
         car. setPrice(15000);
-       assertEquals(18150, car.getPrice());
-
-
+        assertEquals(18150, car.getPrice());
 
         car.setLicensePlate("FG-123-GF");
         assertEquals("FG-123-GF", car.getLicensePlate());
         car. setPrice(20000);
         assertEquals(24300, car.getPrice());
-
-
 
         car.setLicensePlate("BH-667-AZ");
         assertEquals("BH-667-AZ", car.getLicensePlate());
